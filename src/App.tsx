@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
-import { DashboardPage } from './pages';
+import { DashboardPage, StatisticsPage, SensorChartsPage } from './pages';
 import './App.css';
 
 function App() {
@@ -9,6 +9,8 @@ function App() {
       <Container fluid="sm md lg xl" style={{ padding: '20px' }}>
         <Routes>
             <Route path="/" element={<DashboardPage />} />
+            <Route path="/statistics" element={<StatisticsPage />} />
+            <Route path="/statistics/:sensorId" element={<SensorChartsPage />} />
         </Routes>
       </Container>
     </BrowserRouter>
