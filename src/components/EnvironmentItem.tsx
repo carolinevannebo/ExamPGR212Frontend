@@ -12,7 +12,7 @@ const EnvironmentItem = ({sensorId, temperature, humidity, light, timeStamp}: IS
     }, [sensorId, isConnected]);
   
     return (
-      <Card bg="dark" text="light" style={{margin: '1rem'}}>
+      <Card text="light" style={{margin: '1rem', backgroundColor: '#526D82'}}>
         <Card.Header>
             <Card.Title>
                 {sensorId} 
@@ -21,12 +21,12 @@ const EnvironmentItem = ({sensorId, temperature, humidity, light, timeStamp}: IS
             </Card.Title>
         </Card.Header>
         <Card.Body>
-            <Card.Text>Temperature {temperature}</Card.Text>
-            <Card.Text>Humidity {humidity}</Card.Text>
-            <Card.Text>Light {light}</Card.Text>
+            <Card.Text style={{color: '#DDE6ED', fontSize: '1.2rem'}}>Temperature {temperature}</Card.Text>
+            <Card.Text style={{color: '#DDE6ED', fontSize: '1.2rem'}}>Humidity {humidity}</Card.Text>
+            <Card.Text style={{color: '#DDE6ED', fontSize: '1.2rem'}}>Light {light}</Card.Text>
         </Card.Body>
         <Card.Footer>
-            <Card.Text>Last updated {timeStamp.toDateString()}</Card.Text>
+            <Card.Text style={{color: '#DDE6ED'}}>Last updated {timeStamp.toLocaleString('en-US', { timeZone: 'Europe/Oslo' })}</Card.Text>
         </Card.Footer>
       </Card>
     )

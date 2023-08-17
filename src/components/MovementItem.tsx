@@ -10,9 +10,16 @@ const MovementItem = ({sensorId, x, y, z, door, timeStamp}: ISensor) => {
       const isActive = localStorage.getItem(sensorId + '-active') === 'true';
       setIsConnected(isActive);
     }, [sensorId, isConnected]);
+
+    const isDoorOpen = door === "Open";
+    const doorTextStyle = {
+      color: isDoorOpen ? '#b51616' : '#DDE6ED',
+      fontWeight: isDoorOpen ? 'bold' : 'normal',
+      fontSize: '1.2rem'
+    };
   
     return (
-      <Card bg="dark" text="light" style={{margin: '1rem'}}>
+      <Card text="light" style={{margin: '1rem', backgroundColor: '#526D82'}}>
         <Card.Header>
             <Card.Title>
                 {sensorId} 
@@ -21,13 +28,13 @@ const MovementItem = ({sensorId, x, y, z, door, timeStamp}: ISensor) => {
             </Card.Title>
         </Card.Header>
         <Card.Body>
-            <Card.Text>X {x}</Card.Text>
-            <Card.Text>Y {y}</Card.Text>
-            <Card.Text>Z {z}</Card.Text>
-            <Card.Text>Door {door}</Card.Text>
+            <Card.Text style={{color: '#DDE6ED', fontSize: '1.2rem'}}>X {x}</Card.Text>
+            <Card.Text style={{color: '#DDE6ED', fontSize: '1.2rem'}}>Y {y}</Card.Text>
+            <Card.Text style={{color: '#DDE6ED', fontSize: '1.2rem'}}>Z {z}</Card.Text>
+            <Card.Text style={doorTextStyle}>Door {door}</Card.Text>
         </Card.Body>
         <Card.Footer>
-            <Card.Text>Last updated {timeStamp.toDateString()}</Card.Text>
+            <Card.Text style={{color: '#DDE6ED'}}>Last updated {timeStamp.toLocaleString('en-US', { timeZone: 'Europe/Oslo' })}</Card.Text>
         </Card.Footer>
       </Card>
     )

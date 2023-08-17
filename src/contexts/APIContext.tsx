@@ -27,13 +27,13 @@ const APIContextProvider = ({ children }: Props) => {
         });
 
         setSensors(transformedData);
-
-        return (
-            <APIContext.Provider value={{ sensors }}>
-                {children}
-            </APIContext.Provider>
-        );
     };
+
+    return (
+        <APIContext.Provider value={{ sensors }}>
+            {children}
+        </APIContext.Provider>
+    );
 };
 
 export default APIContextProvider;

@@ -1,20 +1,31 @@
 import EnvironmentList from "./EnvironmentList";
 import MovementList from "./MovementList";
-import { Container } from "react-bootstrap";
+import DeviceList from "./DeviceList";
+import { Card, Container, Row } from "react-bootstrap";
 
 const Dashboard = () => {
     return (
-        <>
-            <Container fluid="md">
-                <p className="fs-1 fw-bold text-light">Environment Readings</p>
-                <EnvironmentList />
-            </Container>
+        <Container fluid="sm md lg xl" >
+            <Row className="mb-4">
+                <Card style={{backgroundColor: '#324a5e'}}>
+                    <p className="fs-1 fw-bold readings-title">Environment Readings</p>
+                    <EnvironmentList />
+                </Card>
+            </Row>
 
-            <Container fluid="md">
-                <p className="fs-1 fw-bold text-light">Movement Readings</p>
-                <MovementList />
-            </Container>
-        </>
+            <Row className="mb-4">
+                <Card style={{backgroundColor: '#324a5e'}}>
+                    <DeviceList />
+                </Card>
+            </Row>
+
+            <Row className="mb-4">
+                <Card style={{backgroundColor: '#324a5e'}}>
+                    <p className="fs-1 fw-bold readings-title">Movement Readings</p>
+                    <MovementList />
+                </Card>
+            </Row>
+        </Container>
     );
 };
 

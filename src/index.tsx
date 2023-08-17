@@ -5,6 +5,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import MQTTContextProvider from './contexts/MQTTContext';
+import APIContextProvider from './contexts/APIContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const root = ReactDOM.createRoot(
@@ -13,7 +14,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <MQTTContextProvider>
-      <App />
+      <APIContextProvider>
+        <App />
+      </APIContextProvider>
     </MQTTContextProvider>
   </React.StrictMode>
 );

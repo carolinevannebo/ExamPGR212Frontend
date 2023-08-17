@@ -42,9 +42,16 @@ const MQTTService = (
         };
 
         const updateSensorDataGraph = (sensorId: string, value: string, topic: string) => {
+            if (!value) {
+                return;
+            }
+
             let sensorData = sensorDataMapGraph[sensorId];
 
             if (!sensorData) {
+                const currentTime = new Date();
+                const osloTime = new Date(currentTime.toLocaleString('en-US', { timeZone: 'Europe/Oslo' }));
+
                 sensorData = {
                     sensorId,
                     temperature: "",
@@ -54,7 +61,7 @@ const MQTTService = (
                     y: 0,
                     z: 0,
                     door: "",
-                    timeStamp: new Date(),
+                    timeStamp: osloTime,
                     isActive: false,
                     intervalId: setInterval(() => {}, 0),
                     temperatureValues: [],
@@ -158,14 +165,14 @@ const MQTTService = (
             sensorData.isActive = isActive;
 
             localStorage.setItem(sensorData.sensorId + '-active', isActive.toString());
-            console.log(`Sensor ${sensorData.sensorId} is ${isActive ? 'active' : 'inactive'}`);
+            //console.log(`Sensor ${sensorData.sensorId} is ${isActive ? 'active' : 'inactive'}`);
         };
 
         const messageArrived = (message: Message) => {
             const topicParts = message.destinationName.split("/");
             const sensorId = topicParts[2];
           
-            console.log('Message received:', message.destinationName, message.payloadString);
+            //console.log('Message received:', message.destinationName, message.payloadString);
           
             if (!sensorId) {
               console.error(`Failed to parse sensorId from topic "${message.destinationName}"`);
