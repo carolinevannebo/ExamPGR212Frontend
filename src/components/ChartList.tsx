@@ -3,8 +3,13 @@ import { Container, Row, Col, Card } from "react-bootstrap";
 import ISensor from "../interfaces/ISensor";
 import { APIContext } from "../contexts/APIContext";
 import ChartItem from "./ChartItem";
+import moment from 'moment';
 
-type Props = {sensorId: string;}
+type Props = {
+    sensorId: string;
+}
+
+type SensorDataKey = keyof ISensor;
 
 const ChartList = ({sensorId}: Props) => {
     const { sensors } = useContext<{sensors: { [key: string]: ISensor[] } }>(APIContext);
@@ -12,33 +17,40 @@ const ChartList = ({sensorId}: Props) => {
     useEffect(() => {
     }, [sensors]);
 
-    const getChartItems = (input: string) => {
+    const getChartItems = (input: string, key: SensorDataKey) => {
         const items: JSX.Element[] = [];
 
-        //Object.keys(sensors).forEach((sensorId) => {
-            const sensorDataArray = sensors[sensorId];
-            const values: {x: Date, y: number}[] = [];
-            var yaxis: number;
-
-            sensorDataArray.forEach((sensorData) => {
-                if (input === 'Temperature') yaxis = parseFloat(sensorData.temperature);
-                if (input === 'Humidity') yaxis = parseFloat(sensorData.humidity);
-                if (input === 'Light') yaxis = parseFloat(sensorData.light);
-
-                values.push({x: new Date(sensorData.timestamp), y: yaxis});
-            });
-
-            items.push(<ChartItem key={sensorId} sensorId={sensorId} values={values} input={input} />);
-        //});
+        const sensorDataArray = sensors[sensorId];
+        const values: {x: number, y: number}[] = [];
+        const startOfLast24Hours = moment().subtract(24, 'hours').valueOf();
+        
+        sensorDataArray
+        .filter((instance) => moment(instance.timeStamp).valueOf() >= startOfLast24Hours)
+        .forEach((instance) => {
+                var yaxis: number = 0;
+                //const value: ISensor = instance[key];
+                //console.log("temperature " + instance.temperature); //temperature 31.56999969
+                //console.log("timestamp " + instance.timeStamp); // timestamp 2023-08-17T14:13:36.092Z
+                if (input === "Temperature") yaxis = parseFloat(instance.temperature);
+                if (input === "Humidity") yaxis = parseFloat(instance.humidity);
+                if (input === "Light") yaxis = parseFloat(instance.light);
+                
+                if (!isNaN(yaxis) || yaxis !== undefined) {
+                    const xaxis = moment(instance.timeStamp).valueOf();
+                    values.push({x: xaxis, y: yaxis});
+                }
+        });
+        console.log(values); // null
+        items.push(<ChartItem key={key} sensorId={sensorId} values={values} input={input} />);
 
         return items;
     };
     
     return (
         <Container fluid="sm md lg xl" >
-            {getChartItems('Temperature')}
-            {getChartItems('Humidity')}
-            {getChartItems('Light')}
+            {getChartItems('Temperature', sensorId)}
+            {getChartItems('Humidity', sensorId)}
+            {getChartItems('Light', sensorId)}
         </Container>
     );
 };

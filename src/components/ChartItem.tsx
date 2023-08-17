@@ -4,7 +4,7 @@ import { Card } from 'react-bootstrap';
 
 type Props = {
     sensorId: string;
-    values: {x: Date, y: number}[];
+    values: {x: number, y: number}[];
     input: string;
 }
 
@@ -12,16 +12,14 @@ const ChartItem = ({sensorId, values, input}: Props) => {
     const [chart, setChart] = useState<ApexCharts | null>(null);
 
     const getData = () => {
-        return values.map((value) => {
-            return {x: value.x, y: value.y};
-        });
+        
     }
 
     const getOptions = (input: string) => {
         const options = {
             series: [{
                 name: sensorId,
-                data: getData()
+                data: values
             }],
             chart: {
                 id: `${sensorId}-${input}-Chart`,
@@ -34,7 +32,6 @@ const ChartItem = ({sensorId, values, input}: Props) => {
                 },
             }, xaxis: {
                 type: 'datetime',
-                //her vil du muligens formattere
             },
             yaxis: {
                 title: {
@@ -81,6 +78,7 @@ const ChartItem = ({sensorId, values, input}: Props) => {
             setChart(chart);
         }
     }, [sensorId, input]);
+
 
     return (
         <Card text="light" style={{margin: '1rem', backgroundColor: '#526D82'}}>
