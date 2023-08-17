@@ -1,4 +1,4 @@
-import '../buffer.js';
+import '../buffer'
 import { Client, ConnectionOptions } from 'paho-mqtt';
 import { MQTTCA } from './MQTTCA'; //@todo remove?
 

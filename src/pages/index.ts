@@ -1,1 +1,5 @@
-// alle importer for sider
+import DashboardPage from "./DashboardPage";
+
+export {
+    DashboardPage
+};

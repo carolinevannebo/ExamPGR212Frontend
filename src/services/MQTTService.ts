@@ -90,7 +90,7 @@ const MQTTService = (
                 const valueNumber = getValueNumber(valueString);
                 sensorData.humidity = value;
                 sensorData.humidityValues.push(valueNumber);
-            } else if (topic.endsWith("/Light")) {
+            } else if (topic.endsWith("/LightIntensity")) {
                 const valueParts = value.split(" ");
                 const valueString = valueParts[0];
                 const valueNumber = getValueNumber(valueString);
@@ -203,7 +203,7 @@ const MQTTService = (
                 } else if (message.destinationName.endsWith("/Humidity")) {
                     sensorData.humidity = value;
                     updateSensorDataGraph(sensorId, value, message.destinationName);
-                } else if (message.destinationName.endsWith("/Light")) {
+                } else if (message.destinationName.endsWith("/LightIntensity")) {
                     sensorData.light = value;
                     updateSensorDataGraph(sensorId, value, message.destinationName);
                 } else if (message.destinationName.endsWith("/X")) {
