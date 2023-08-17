@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
 import MovementItem from "./MovementItem";
-import { MQTTContext } from "../contexts/MQTTContext";
-import ISensor from "../interfaces/ISensor";
+import { MQTTContext } from "../../contexts/MQTTContext";
+import ISensor from "../../interfaces/ISensor";
 import { Col, Row } from "react-bootstrap";
 
 const MovementList = () => {

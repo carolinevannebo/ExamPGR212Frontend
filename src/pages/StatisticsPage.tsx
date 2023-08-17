@@ -1,4 +1,4 @@
-import Statistics from "../components/Statistics";
+import Statistics from "../components/statistics/Statistics";
 
 const StatisticsPage = () => {
     return (

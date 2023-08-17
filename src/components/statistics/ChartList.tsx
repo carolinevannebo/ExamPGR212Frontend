@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
-import ISensor from "../interfaces/ISensor";
-import { APIContext } from "../contexts/APIContext";
+import ISensor from "../../interfaces/ISensor";
+import { APIContext } from "../../contexts/APIContext";
 import ChartItem from "./ChartItem";
 import moment from 'moment';
 
@@ -28,9 +28,6 @@ const ChartList = ({sensorId}: Props) => {
         .filter((instance) => moment(instance.timeStamp).valueOf() >= startOfLast24Hours)
         .forEach((instance) => {
                 var yaxis: number = 0;
-                //const value: ISensor = instance[key];
-                //console.log("temperature " + instance.temperature); //temperature 31.56999969
-                //console.log("timestamp " + instance.timeStamp); // timestamp 2023-08-17T14:13:36.092Z
                 if (input === "Temperature") yaxis = parseFloat(instance.temperature);
                 if (input === "Humidity") yaxis = parseFloat(instance.humidity);
                 if (input === "Light") yaxis = parseFloat(instance.light);
@@ -40,7 +37,6 @@ const ChartList = ({sensorId}: Props) => {
                     values.push({x: xaxis, y: yaxis});
                 }
         });
-        console.log(values); // null
         items.push(<ChartItem key={key} sensorId={sensorId} values={values} input={input} />);
 
         return items;

@@ -1,4 +1,4 @@
-import ChartList from "../components/ChartList";
+import ChartList from "../components/statistics/ChartList";
 import { useParams, Navigate } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import { useContext } from "react";

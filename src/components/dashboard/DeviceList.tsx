@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
-import { APIContext } from "../contexts/APIContext";
-import { MQTTContext } from "../contexts/MQTTContext"
-import ISensor from "../interfaces/ISensor";
+import { APIContext } from "../../contexts/APIContext";
+import { MQTTContext } from "../../contexts/MQTTContext"
+import ISensor from "../../interfaces/ISensor";
 import { Col, Row, Card } from "react-bootstrap";
 
 const DeviceList = () => {

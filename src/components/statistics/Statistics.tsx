@@ -1,5 +1,5 @@
-import ISensor from "../interfaces/ISensor";
-import { APIContext } from "../contexts/APIContext";
+import ISensor from "../../interfaces/ISensor";
+import { APIContext } from "../../contexts/APIContext";
 import { Card, Col, Container, Row} from "react-bootstrap";
 import { useContext } from "react";
 import { Link } from "react-router-dom";

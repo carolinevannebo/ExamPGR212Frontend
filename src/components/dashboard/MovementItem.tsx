@@ -1,4 +1,4 @@
-import ISensor from "../interfaces/ISensor";
+import ISensor from "../../interfaces/ISensor";
 import { Card } from "react-bootstrap";
 import { BsWifi, BsWifiOff } from "react-icons/bs";
 import { useEffect, useState } from "react";

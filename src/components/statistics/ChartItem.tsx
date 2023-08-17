@@ -1,6 +1,8 @@
 import {useState, useEffect} from 'react';
 import ApexCharts from 'apexcharts';
 import { Card } from 'react-bootstrap';
+import moment from 'moment';
+import 'moment-timezone';
 
 type Props = {
     sensorId: string;
@@ -9,11 +11,7 @@ type Props = {
 }
 
 const ChartItem = ({sensorId, values, input}: Props) => {
-    const [chart, setChart] = useState<ApexCharts | null>(null);
-
-    const getData = () => {
-        
-    }
+    //const [chart, setChart] = useState<ApexCharts | null>(null);
 
     const getOptions = (input: string) => {
         const options = {
@@ -32,10 +30,27 @@ const ChartItem = ({sensorId, values, input}: Props) => {
                 },
             }, xaxis: {
                 type: 'datetime',
+                labels: {
+                    datetimeUTC: false,
+                    formatter: (value: number): string => {
+                        return moment(value).tz('Europe/Oslo').format("HH:mm");
+                    },
+                    style: {
+                        colors: '#DDE6ED',
+                    },
+                },
             },
             yaxis: {
                 title: {
                     text: input,
+                    style: {
+                        colors: '#DDE6ED',
+                    }
+                },
+                labels: {
+                    style: {
+                        colors: '#DDE6ED',
+                    },
                 },
             }, tooltip: {
                 enabled: true,
@@ -66,16 +81,17 @@ const ChartItem = ({sensorId, values, input}: Props) => {
     };
 
     const getChart = () => {
-        const element = document.getElementById(`${sensorId}-${input}-Chart`);
+        const element = document.querySelector(`#${sensorId}-${input}-Chart`);
         if (!element) {return null;}
         return new ApexCharts(element, getOptions(input));
     };
 
     useEffect(() => {
         const chart = getChart();
+
         if (chart) {
             chart.render();
-            setChart(chart);
+            //setChart(chart as ApexCharts);
         }
     }, [sensorId, input]);
 
