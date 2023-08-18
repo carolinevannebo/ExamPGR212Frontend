@@ -1,9 +1,6 @@
 import ChartList from "../components/statistics/ChartList";
 import { useParams, Navigate } from "react-router-dom";
 import { Container } from "react-bootstrap";
-import { useContext } from "react";
-import APIContext from "../contexts/APIContext";
-import ISensor from "../interfaces/ISensor";
 
 const SensorChartsPage = () => {
     const {sensorId} = useParams<{sensorId: string}>();

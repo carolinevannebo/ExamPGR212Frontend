@@ -3,7 +3,6 @@ import { APIContext } from "../../contexts/APIContext";
 import { Card, Col, Container, Row, Image} from "react-bootstrap";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import "../../assets/bg1.png";
 
 const Statistics = () => {
     const { sensors } = useContext<{sensors: { [key: string]: ISensor[] } }>(APIContext);
