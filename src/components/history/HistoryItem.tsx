@@ -1,6 +1,6 @@
 import ISensor from "../../interfaces/ISensor";
 import { useState } from "react";
-import { Table, Container } from "react-bootstrap";
+import { Table, Container, Card } from "react-bootstrap";
 import moment from 'moment';
 
 type Props = {
@@ -31,10 +31,10 @@ const HistoryItem = ({sensorId, sensorData}: Props) => {
     };
 
     return (
-        <Container fluid="sm md lg xl" >
+        <Card text="light" className="mb-3" style={{padding: "2rem", backgroundColor: '#324a5e'}}>
             <p className="fs-2 fw-bold" onClick={toggleShow} style={{cursor: 'pointer'}}>{sensorId}</p>
             {show && (
-                <Table striped bordered hover variant="dark">
+                <Table striped hover variant="primary">
                     <thead>
                         <tr>
                             <th>Timestamp</th>
@@ -52,7 +52,8 @@ const HistoryItem = ({sensorId, sensorData}: Props) => {
                     </tbody>
                 </Table>
             )}
-        </Container>
+
+        </Card>
     );
 };
 

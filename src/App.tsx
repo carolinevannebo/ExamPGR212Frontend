@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
-import { DashboardPage, StatisticsPage, SensorChartsPage, Header } from './pages';
+import { DashboardPage, StatisticsPage, SensorChartsPage, Header, HistoryPage } from './pages';
 import './App.css';
 
 function App() {
@@ -12,6 +12,7 @@ function App() {
             <Route path="/" element={<DashboardPage />} />
             <Route path="/statistics" element={<StatisticsPage />} />
             <Route path="/statistics/:sensorId" element={<SensorChartsPage />} />
+            <Route path='/history' element={<HistoryPage />} />
         </Routes>
       </Container>
     </BrowserRouter>

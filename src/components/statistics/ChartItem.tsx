@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useRef} from 'react';
 import ApexCharts from 'apexcharts';
 import { Card } from 'react-bootstrap';
 import moment from 'moment';
@@ -11,6 +11,7 @@ type Props = {
 }
 
 const ChartItem = ({sensorId, values, input}: Props) => {
+    const chartRef = useRef<HTMLDivElement | null>(null);
 
     const getOptions = (input: string) => {
         const options = {
@@ -32,7 +33,7 @@ const ChartItem = ({sensorId, values, input}: Props) => {
                 labels: {
                     datetimeUTC: false,
                     formatter: (value: number): string => {
-                        return moment(value).tz('Europe/Oslo').format("HH:mm");
+                        return moment(value).tz('Europe/Oslo').format("DD MMMM YYYY HH:mm");
                     },
                     style: {
                         colors: '#DDE6ED',
@@ -44,12 +45,24 @@ const ChartItem = ({sensorId, values, input}: Props) => {
                     text: input,
                     style: {
                         colors: '#DDE6ED',
-                    }
+                    },
                 },
                 labels: {
                     style: {
                         colors: '#DDE6ED',
                     },
+                    formatter: (value: number): string => {
+                        if (input === 'Temperature') {
+                            return `${value.toFixed(2)} °C`;
+                        }
+                        if (input === 'Humidity') {
+                            return `${value.toFixed(2)} %`;
+                        }
+                        if (input === 'Light') {
+                            return `${value.toFixed(2)} lux`;
+                        }
+                        return `${value.toFixed(2)}`;
+                    }
                 },
             }, tooltip: {
                 enabled: true,
@@ -60,15 +73,15 @@ const ChartItem = ({sensorId, values, input}: Props) => {
                 y: {
                     formatter: (value: number): string => {
                         if (input === 'Temperature') {
-                            return `${value} °C`;
+                            return `${value.toFixed(2)} °C`;
                         }
                         if (input === 'Humidity') {
-                            return `${value} %`;
+                            return `${value.toFixed(2)} %`;
                         }
                         if (input === 'Light') {
-                            return `${value} lux`;
+                            return `${value.toFixed(2)} lux`;
                         }
-                        return `${value}`;
+                        return `${value.toFixed(2)}`;
                     },
                 },
                 theme: 'dark',
@@ -86,13 +99,24 @@ const ChartItem = ({sensorId, values, input}: Props) => {
         return new ApexCharts(element, getOptions(input));
     };
 
-    useEffect(() => {
+    /*useEffect(() => {
         const chart = getChart();
 
         if (chart) {
             chart.render();
         }
-    }, [sensorId, input]);
+    }, [sensorId, input]);*/
+
+    useEffect(() => {
+        if (chartRef.current) {
+            const chart = new ApexCharts(chartRef.current, getOptions(input));
+            chart.render();
+
+            return () => {
+                chart.destroy();
+            };
+        }
+    }, [input]);
 
 
     return (
@@ -101,7 +125,7 @@ const ChartItem = ({sensorId, values, input}: Props) => {
                 <Card.Title>{sensorId} {input}</Card.Title>
             </Card.Header>
             <Card.Body>
-                <div id={`${sensorId}-${input}-Chart`} style={{width: '100%', height: '100%'}}></div>
+                <div ref={chartRef} id={`${sensorId}-${input}-Chart`} style={{width: '100%', height: '100%'}}></div>
             </Card.Body>
         </Card>
     );
