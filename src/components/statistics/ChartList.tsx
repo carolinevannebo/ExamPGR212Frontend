@@ -24,22 +24,27 @@ const ChartList = ({sensorId}: Props) => {
         const values: {x: number, y: number}[] = [];
         const startOfLast24Hours = moment().subtract(24, 'hours').valueOf();
         
-        sensorDataArray
-        .filter((instance) => moment(instance.timeStamp).valueOf() >= startOfLast24Hours)
-        .forEach((instance) => {
-                var yaxis: number = 0;
-                if (input === "Temperature") yaxis = parseFloat(instance.temperature);
-                if (input === "Humidity") yaxis = parseFloat(instance.humidity);
-                if (input === "Light") yaxis = parseFloat(instance.light);
-                
-                if (!isNaN(yaxis) || yaxis !== undefined) {
-                    const xaxis = moment(instance.timeStamp).valueOf();
-                    values.push({x: xaxis, y: yaxis});
-                }
-        });
-        items.push(<ChartItem key={key} sensorId={sensorId} values={values} input={input} />);
-
-        return items;
+        try {
+            sensorDataArray
+            .filter((instance) => moment(instance.timeStamp).valueOf() >= startOfLast24Hours)
+            .forEach((instance) => {
+                    var yaxis: number = 0;
+                    if (input === "Temperature") yaxis = parseFloat(instance.temperature);
+                    if (input === "Humidity") yaxis = parseFloat(instance.humidity);
+                    if (input === "Light") yaxis = parseFloat(instance.light);
+                    
+                    if (!isNaN(yaxis) || yaxis !== undefined) {
+                        const xaxis = moment(instance.timeStamp).valueOf();
+                        values.push({x: xaxis, y: yaxis});
+                    }
+            });
+            items.push(<ChartItem key={key} sensorId={sensorId} values={values} input={input} />);
+    
+            return items;
+        } catch (error) {
+            console.log(error);
+            // to do: handle TypeError: Cannot read roperties of undefined (reading 'filter')
+        }
     };
     
     return (

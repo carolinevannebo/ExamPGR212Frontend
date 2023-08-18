@@ -8,7 +8,7 @@ const Dashboard = () => {
         <Container fluid="sm md lg xl" >
             <Row className="mb-4">
                 <Card style={{backgroundColor: '#324a5e'}}>
-                    <p className="fs-1 fw-bold readings-title">Environment Readings</p>
+                    <p className="fs-2 fw-bold readings-title">Environment Readings</p>
                     <EnvironmentList />
                 </Card>
             </Row>

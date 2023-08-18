@@ -11,7 +11,6 @@ type Props = {
 }
 
 const ChartItem = ({sensorId, values, input}: Props) => {
-    //const [chart, setChart] = useState<ApexCharts | null>(null);
 
     const getOptions = (input: string) => {
         const options = {
@@ -72,6 +71,7 @@ const ChartItem = ({sensorId, values, input}: Props) => {
                         return `${value}`;
                     },
                 },
+                theme: 'dark',
             },
             stroke: {
                 curve: 'smooth',
@@ -91,7 +91,6 @@ const ChartItem = ({sensorId, values, input}: Props) => {
 
         if (chart) {
             chart.render();
-            //setChart(chart as ApexCharts);
         }
     }, [sensorId, input]);
 

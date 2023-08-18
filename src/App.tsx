@@ -1,12 +1,13 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
-import { DashboardPage, StatisticsPage, SensorChartsPage } from './pages';
+import { DashboardPage, StatisticsPage, SensorChartsPage, Header } from './pages';
 import './App.css';
 
 function App() {
   return (
     <BrowserRouter>
-      <Container fluid="sm md lg xl" style={{ padding: '20px' }}>
+      <Container fluid="sm md lg xl" style={{ padding: '20px'}}>
+        <Header />
         <Routes>
             <Route path="/" element={<DashboardPage />} />
             <Route path="/statistics" element={<StatisticsPage />} />
