@@ -21,6 +21,9 @@ submissions and lectures to get ideas for good additions.
 ## Solution
 This react typescript project solves the frontend of the swine house system. The application gathers data from the backend server and handles both deployed and locally run API calls. It also subscribes to an MQTT broker in order to display real time data in the form of a dashboard. The historic data, gathered from the DB is displayed in line charts and tables with search functionality. This solution handles any new devices being registered both with responsive design and by seperating concerns. I have attempted to write maintainable code, by organizing the project to be changable with the use of pages, components, services, interfaces and contexts. After testing the solution with different microcontrollers, I observed new instances appearing on the screen without needing to change the code. The solution displays data readings from temperature, humidity, light, accelometer and hall sensor.
 
+- Edge https://github.com/carolinevannebo/ExamPGR212Edge
+- Backend https://github.com/carolinevannebo/ExamPGR212Backend
+
 ### Components
 - Libraries used for implementation
 - Dashboard
